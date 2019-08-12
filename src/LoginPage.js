@@ -20,9 +20,9 @@ class LoginPage extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      // console.log(data)
       if (data.token) {
         localStorage.token = data.token
+        this.props.setUserState(data.user)
         this.props.history.push('/home')
       }
     })

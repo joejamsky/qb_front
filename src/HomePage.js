@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-// import Message from './Message'
-
+import './css/home-page.css'
 
 class HomePage extends Component {
 
@@ -16,10 +15,22 @@ class HomePage extends Component {
   }
 
   render () {
+    
     return (
       <div className="HomePage">
-          <h1>Welcome </h1>
+        <header>
+          <h1>Welcome {this.props.userData.username}</h1> 
           <Link onClick={this.handleLogout} className="logout" to="/login">Logout</Link>
+        </header>
+        <div className="Menu-button">
+          <Link className="Profile" to="/profile">Profile</Link>
+        </div>
+        <div className="Menu-button"> 
+          <Link className="Matches" to="/matches">Matches</Link>
+        </div>
+        <div className="Menu-button"> 
+          <Link className="Game" to="/game">Game</Link>
+        </div>
       </div>
     )
   }
