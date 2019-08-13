@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import '../css/profile.css'
-import { Link } from 'react-router-dom'
 import EditProfileAttribute from './EditProfileAttribute'
 
 class Profile extends Component {
 
   state = {
-    user: {},
     edit_age: false,
     edit_bio: false,
   }
@@ -17,21 +15,9 @@ class Profile extends Component {
     })
   }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/profile',{
-      headers:  {
-        Authorization: localStorage.token
-      }
-    })
-    .then(res => res.json())
-    .then(userObj => {
-      this.setState({user: userObj})
-    })
-  }
-
   handleDeleteClick = () => {
     if ( window.confirm('You are about to delete your profile. Continue?') ) {
-      fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+      fetch(`http://localhost:3000/users/${this.props.userData.id}`, {
         method: 'DELETE'
       })
     } 
@@ -42,26 +28,25 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile-container"> 
-        <Link className="home-link" to="/home">Home</Link>
         
         <div className="image-container">
-        <img src={this.state.user.profile_pic} alt="Logo" />
+        <img src={this.props.userData.profile_pic} alt="Logo" />
         </div>
 
-        <h1>{this.state.user.username}</h1>
+        <h1>{this.props.userData.username}</h1>
         
         <h5>Age</h5>
         {this.state.edit_age ? (
-          <EditProfileAttribute className="profile-attribute" userData={this.state.user} attribute="age" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
+          <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="age" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
         ) : (
-          <h5 className="profile-attribute">{this.state.user.age} <button name="edit_age" onClick={this.handleEditButton} >Edit</button> </h5>
+          <h5 className="profile-attribute">{this.props.userData.age} <button name="edit_age" onClick={this.handleEditButton} >Edit</button> </h5>
         )}
 
         <h5>Bio</h5>
         {this.state.edit_bio ? (
-          <EditProfileAttribute className="profile-attribute" userData={this.state.user} attribute="bio" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
+          <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="bio" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
         ) : (
-          <h5 className="profile-attribute">{this.state.user.bio} <button name="edit_bio" onClick={this.handleEditButton} >Edit</button> </h5>
+          <h5 className="profile-attribute">{this.props.userData.bio} <button name="edit_bio" onClick={this.handleEditButton} >Edit</button> </h5>
         )}
         
         <h5 onClick={this.handleDeleteClick} >Delete this mess </h5>

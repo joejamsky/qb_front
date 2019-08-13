@@ -7,7 +7,7 @@ class Drone extends Component {
     super(props)
     this.state = {
       answers: [],
-      seconds: 10
+      seconds: 30
     }
   }
 
@@ -27,12 +27,12 @@ class Drone extends Component {
   }
 
   tick() {
-    if(this.state.seconds <= 0){
-      console.log("times up")
+    if(this.state.seconds === 0){
+      clearInterval(this.interval)
+      this.props.history.push('/final')
+    } else {
+      this.setState(prevState => ({ seconds: prevState.seconds - 1 }) );
     }
-    this.setState(prevState => ({
-      seconds: prevState.seconds - 1
-    }));
   }
 
   componentDidMount() {
