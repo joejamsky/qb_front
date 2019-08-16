@@ -16,27 +16,49 @@ class App extends Component {
   
   state = {
     user: {},
+    game: {},
     matches: [],
-    questions: [],
-    game_questions: []
+    questions: []
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/questions')
-    .then(res => res.json())
-    .then(data => this.setState({
-      questions: data
-    }))
-
-    fetch('http://localhost:3000/profile',{
-      headers:  {
-        Authorization: localStorage.token
-      }
+    if(localStorage.token){
+      fetch('http://localhost:3000/profile',{
+        headers:  {
+          Authorization: localStorage.token
+        }
+      })
+      .then(res => res.json())
+      .then(userObj => {
+        // console.log(userObj, "user")
+        this.setState({user: userObj})
+      })
+      // .then(this.fetchGame())
+    }
+  }
+  
+  fetchGame = () => {
+    console.log(this.state.game, "before fetch")
+    fetch('http://localhost:3000/usergame', {
+      method: 'PUT',
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+      },
+      body: JSON.stringify(this.state.user)
     })
     .then(res => res.json())
-    .then(userObj => {
-      this.setState({user: userObj})
-    })
+    .then(data => console.log(data, "after fetch"))
+    // .then(gameObj => {
+    //   // console.log(gameObj, "game")
+    //   if(gameObj.message){
+    //     // console.log(gameObj.message)
+    //   } else {
+    //     this.setState({
+    //       game: gameObj
+    //     })
+    //   }
+    // })
   }
 
   setUserState = (userData) => {
@@ -45,24 +67,34 @@ class App extends Component {
     })
   }
 
-  selectRandomQuestions() {
-    let max_questions = 3
-    let allQuestions = this.state.questions
-    var randomQuestions = allQuestions.slice(0), i = allQuestions.length, temp, index;
-    while (i--) {
-        index = Math.floor((i + 1) * Math.random());
-        temp = randomQuestions[index];
-        randomQuestions[index] = randomQuestions[i];
-        randomQuestions[i] = temp;
-    }
-    return randomQuestions.slice(0, max_questions);
+  setGameState = (gameData) => {
+
+    this.setState({
+      game: gameData.game,
+      questions: gameData.questions,
+    })
+    console.log(this.state.game, "set state")
   }
+
+  // selectRandomQuestions() {
+  //   let max_questions = 3
+  //   let allQuestions = this.state.questions
+  //   var randomQuestions = allQuestions.slice(0), i = allQuestions.length, temp, index;
+  //   while (i--) {
+  //       index = Math.floor((i + 1) * Math.random());
+  //       temp = randomQuestions[index];
+  //       randomQuestions[index] = randomQuestions[i];
+  //       randomQuestions[i] = temp;
+  //   }
+  //   return randomQuestions.slice(0, max_questions);
+  // }
 
   handleLogout = () => {
     localStorage.clear()
   }
 
   render() {
+    // console.log(this.state.game, "render")
     return (
       <BrowserRouter>      
         <header> 
@@ -75,11 +107,14 @@ class App extends Component {
             <Route path="/signup" render={(routerProps) => <SignupPage {...routerProps} setUserState={this.setUserState} /> } />
             <Route path="/home" render={(routerProps) => <HomePage {...routerProps} userData={this.state.user} /> } />
             <Route path="/matches" render={(routerProps) => <MatchesList {...routerProps} userData={this.state.user} /> } /> />
-            <Route path="/game"  render={(routerProps) => <Game {...routerProps} userData={this.state.user} /> } />
+
+            <Route path="/game"  render={(routerProps) => <Game {...routerProps} userData={this.state.user} gameData={this.state.game} setGameState={this.setGameState} setUserState={this.setUserState} /> } />
+            
             <Route path="/profile" render={(routerProps) => <Profile {...routerProps} userData={this.state.user} setUserState={this.setUserState} /> } />
-            <Route path="/queen" render={(routerProps) => <Queen {...routerProps} userData={this.state.user} setUserState={this.setUserState} /> } />
-            <Route path="/drone" render={(routerProps) => <Drone {...routerProps} userData={this.state.user} questions={this.selectRandomQuestions()} setUserState={this.setUserState} /> } />
-            <Route path="/lobby" render={(routerProps) => <Lobby {...routerProps} userData={this.state.user} /> } />
+            <Route path="/queen" render={(routerProps) => <Queen {...routerProps} userData={this.state.user} gameData={this.state.game} setUserState={this.setUserState} /> } />
+            {/* <Route path="/drone" render={(routerProps) => <Drone {...routerProps} userData={this.state.user} gameData={this.state.game} questions={this.selectRandomQuestions()} setUserState={this.setUserState} /> } /> */}
+            <Route path="/drone" render={(routerProps) => <Drone {...routerProps} userData={this.state.user} gameData={this.state.game} questionData={this.state.questions} setUserState={this.setUserState} /> } />
+            <Route path="/lobby" render={(routerProps) => <Lobby {...routerProps} userData={this.state.user} gameData={this.state.game} /> } />
             <Route path="/final" component={Final} />
             <Route exact path="/" render={(routerProps) => <LoginPage {...routerProps} setUserState={this.setUserState} /> } />        
         </Switch>

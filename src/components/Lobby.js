@@ -2,52 +2,51 @@ import React, { Component } from 'react';
 
 class Lobby extends Component {
 
-  state = {
-    game: {}
-  }
+  checkGameFull = (gameReady) => {
 
-  checkGameFull = (gameData) => {
-    if(gameData.msg){
-      console.log("Not full")
-    } else {
-      // debugger
-      this.props.history.push('/drone')
+    if(gameReady.bool === "true"){
+
+      if(this.props.userData.queen === true){
+        this.props.history.push('/queen')
+      } else {
+        this.props.history.push('/drone')
+      }
+      
     }
   }
 
-  pollDrones = () => {
+  pollLobby = () => {
     const user = this.props.userData
-    console.log(user.id)
-    fetch('http://localhost:3000/poll-drone', {
+    const game = this.props.gameData
+    fetch('http://localhost:3000/pollLobby', {
       method: 'PUT',
       headers: {
         'Content-Type':'application/json',
         'Accept':'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({
+          user: user,
+          game: game
+        })
     })
     .then(res => res.json())
     .then(gameData => this.checkGameFull(gameData))
   }
     
   componentDidMount(){
-    if(this.state.game){
-      this.interval = setInterval(() => this.pollDrones(), 5000);
-    } else {
-      this.props.history.push('/drone')
-    }
+    this.interval = setInterval(() => this.pollLobby(), 3000);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-    //delete game search 
   }
   
 
   render() {
     return (
       <div className="Lobby">
-        Waiting for player
+        <p>Hi {this.props.userData.username}</p>
+        <p> Waiting for other players</p>
       </div>
     );  
   }

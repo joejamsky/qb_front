@@ -2,76 +2,84 @@ import React, { Component } from 'react';
 
 class Queen extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
-      game: {},
-      drones: {},
-      searching: true, 
-      answers: []
-    }
+  state = {
+    game: {},
+    drones: [],
+    questions: [],
+    answers: [{id: 0, content: "One"}, {id: 1, content: "two"}]
   }
 
-  checkGameFull = (gameData) => {
-    // debugger
-    if(gameData.message){
-      console.log(gameData.message)
-    } else {
-      this.setState({ 
-        game: gameData.game,
-        drones: gameData.drone
-      })
-      console.log(" game ready ")
-      clearInterval(this.interval);
-      this.setState({
-        searching: false
-      })
-    }
+  printAnswers = () => {
+    return this.state.answers.map(function(answer){
+      return <p key={answer.id} > {answer.content} fart </p>
+    })
+  }
+
+  printQuestions = () => {
+    const printAs = this.printAnswers
+    return this.state.questions.map(function(question){
+      return (
+        <div key={question.id} >
+          <div>{question.text}: {printAs()}</div>
+        </div>
+      )
+    })
   }
 
   printDrones = () => {
-    return (
-      <div>
-        {this.state.drones.username}
-      </div>
-    )
+    const printQs = this.printQuestions
+    return this.state.drones.map(function(drone, index){
+      if(index === 0){
+        return (
+          <div className="drone-contrainer" key={index}> 
+            <h1>Queen Bee</h1> 
+            <p>hey {drone.username}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div className="drone-contrainer" key={index}> 
+            <h1>Player {index}: {drone.username}</h1> 
+            <div>{printQs()}</div>
+          </div>
+        )
+      }
+    })
   }
 
-  pollGameLobby = () => {
-    const user = this.props.userData
-    console.log(user.id)
-    fetch('http://localhost:3000/poll-queen', {
-      method: 'PUT',
-      headers: {
-        'Content-Type':'application/json',
-        'Accept':'application/json'
-      },
-      body: JSON.stringify(user)
-    })
+  pollDrones = () => {
+    const gameId = this.props.gameData.id
+    fetch(`http://localhost:3000/poll-drones/${gameId}`)
     .then(res => res.json())
-    .then(gameData => this.checkGameFull(gameData))
+    .then(gameInfo => this.setState({
+      game: gameInfo.game,
+      drones: gameInfo.drones,
+      questions: gameInfo.questions,
+      // answers: gameInfo.answers
+    }))
   }
 
   componentDidMount(){
-    if(this.state.searching === true){
-      this.interval = setInterval(() => this.pollGameLobby(), 5000);
-    }
+    this.interval = setInterval(() => this.pollDrones(), 4000);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-    //delete game search 
+    //delete all game stuff at end
   }
 
   render() {
-    // debugger
+    console.log(this.state, "game from queen state")
     return (
       <div className="Queen">
-        { this.state.searching ? (
-          "Waiting for drones. One sec."
+        Queen Room 
+        {this.printDrones()}
+        {/* {this.props.gameData} */}
+        {/* { this.state.searching ? (
+
         ) : (
           this.printDrones()
-        )}
+        )} */}
       </div>
     );  
   }

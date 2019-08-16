@@ -19,15 +19,31 @@ class Drone extends Component {
 
   makeQuestion = () => {
     let handleAnswerSubmit = this.handleAnswerSubmit
-    if(this.props.questions.length !== 0){
-      return this.props.questions.map( function (question) {
+    if(this.props.questionData.length !== 0){
+      return this.props.questionData.map( function (question) {
         return <Question key={question.id} questionObj={question} handleAnswerSubmit={handleAnswerSubmit} />
       })
     }
   }
 
+  saveAnswers = () => {
+    fetch('http://localhost:3001/saveAnswers', {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+      },
+      body: JSON.stringify({
+        answers: this.state.answers,
+        user: this.props.userData,
+        game: this.props.gameData
+      })
+    })
+  }
+
   tick() {
     if(this.state.seconds === 0){
+      this.saveAnswers()
       clearInterval(this.interval)
       this.props.history.push('/final')
     } else {
@@ -44,7 +60,7 @@ class Drone extends Component {
   }
 
   render() {
-    console.log(this.state.seconds)
+    console.log(this.props)
     return (
       <div className="Drone">
         {this.props ? (
