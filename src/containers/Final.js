@@ -3,22 +3,34 @@ import React, { Component } from 'react';
 class Final extends Component {
 
   state = {
-    searching: true
+    searching: true,
+    queen: {},
+    drone: {}
+  }
+
+  handleFoundChoice = (choiceData) => {
+    if(choiceData.error){
+      console.log(choiceData.error)
+    } else {
+      clearInterval(this.interval);
+      this.setState({
+        searching: false,
+        queen: choiceData.queen,
+        drone: choiceData.drone
+      })
+    }
   }
 
   checkChoice = () => {
     const id = this.props.gameData.id
-    debugger
     fetch(`http://localhost:3000/pollChoice/${id}`)
     .then(res => res.json())
-    .then(data => console.log(data))
-    .then(this.setState({
-      searching: false
-    }))
+    // .then(data => console.log(data))
+    .then(choiceData => this.handleFoundChoice(choiceData))
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.checkChoice(), 1000);
+    this.interval = setInterval(() => this.checkChoice(), 5000);
   }
 
   componentWillUnmount() {
@@ -26,13 +38,18 @@ class Final extends Component {
   }
 
   render() {
-    debugger
+    // debugger
     return (
       <div className="Final">
         { this.state.searching ? (
-          <h1>WHO WINNAH?</h1>
+          <h1>WHO JELLY?</h1>
         ) : (
-          <h1>IT ME</h1>
+          <div className="winners-circle">
+            <h1>THESE TWO JELLY</h1>
+            <div>{this.state.queen.username}</div>
+            <p> loooooooovess </p>
+            <div>{this.state.drone.username}</div>
+          </div>
         )}
       </div>
     );  
