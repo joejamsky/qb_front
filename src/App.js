@@ -112,10 +112,10 @@ class App extends Component {
             
             <Route path="/profile" render={(routerProps) => <Profile {...routerProps} userData={this.state.user} setUserState={this.setUserState} /> } />
             <Route path="/queen" render={(routerProps) => <Queen {...routerProps} userData={this.state.user} gameData={this.state.game} setUserState={this.setUserState} /> } />
-            {/* <Route path="/drone" render={(routerProps) => <Drone {...routerProps} userData={this.state.user} gameData={this.state.game} questions={this.selectRandomQuestions()} setUserState={this.setUserState} /> } /> */}
+  
             <Route path="/drone" render={(routerProps) => <Drone {...routerProps} userData={this.state.user} gameData={this.state.game} questionData={this.state.questions} setUserState={this.setUserState} /> } />
             <Route path="/lobby" render={(routerProps) => <Lobby {...routerProps} userData={this.state.user} gameData={this.state.game} /> } />
-            <Route path="/final" component={Final} />
+            <Route path="/final" render={(routerProps) => <Final {...routerProps} gameData={this.state.game} /> }  />
             <Route exact path="/" render={(routerProps) => <LoginPage {...routerProps} setUserState={this.setUserState} /> } />        
         </Switch>
       </BrowserRouter>

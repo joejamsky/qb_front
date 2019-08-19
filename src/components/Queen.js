@@ -6,7 +6,7 @@ class Queen extends Component {
     game: {},
     drones: [],
     questions: [],
-    answers: [{id: 0, content: "One"}, {id: 1, content: "two"}]
+    answers: []
   }
 
   printAnswers = () => {
@@ -15,19 +15,48 @@ class Queen extends Component {
     })
   }
 
-  printQuestions = () => {
-    const printAs = this.printAnswers
-    return this.state.questions.map(function(question){
+  selectDrone = (e) => {
+    const id = parseInt(e.target.value)
+    fetch(`http://localhost:3000/createChoice/${id}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+      },
+      body: JSON.stringify({
+        user: this.props.userData,
+        game: this.props.gameData
+      })
+    })
+    .then( this.props.history.push(`/final`) )
+
+    clearInterval(this.interval);
+  }
+
+  printQuestionAndAnswers = () => {
+    const print_answers = this.state.answers
+    if(print_answers !== undefined){
+      const answers = this.state.answers 
+      return this.state.questions.map(function(question, index){
+        return (
+          <div key={question.id} >
+            <div>{question.text}: {answers[index].content} fart</div>
+          </div>
+        )
+      })
+    }
+    return this.state.questions.map(function(question, index){
       return (
         <div key={question.id} >
-          <div>{question.text}: {printAs()}</div>
+          <div>{question.text}: </div>
         </div>
       )
     })
   }
 
   printDrones = () => {
-    const printQs = this.printQuestions
+    const printQnAs = this.printQuestionAndAnswers
+    const droneClicker = this.selectDrone
     return this.state.drones.map(function(drone, index){
       if(index === 0){
         return (
@@ -39,8 +68,8 @@ class Queen extends Component {
       } else {
         return (
           <div className="drone-contrainer" key={index}> 
-            <h1>Player {index}: {drone.username}</h1> 
-            <div>{printQs()}</div>
+            <h1>Player {index}: {drone.username} <button onClick={droneClicker} value={drone.id}>Select</button></h1> 
+            <div>{printQnAs()}</div>
           </div>
         )
       }
@@ -51,11 +80,12 @@ class Queen extends Component {
     const gameId = this.props.gameData.id
     fetch(`http://localhost:3000/poll-drones/${gameId}`)
     .then(res => res.json())
+    // .then(data => console.log(data))
     .then(gameInfo => this.setState({
       game: gameInfo.game,
       drones: gameInfo.drones,
       questions: gameInfo.questions,
-      // answers: gameInfo.answers
+      answers: gameInfo.answers
     }))
   }
 

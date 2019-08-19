@@ -7,7 +7,7 @@ class Drone extends Component {
     super(props)
     this.state = {
       answers: [],
-      seconds: 30
+      seconds: 12
     }
   }
 
@@ -27,7 +27,7 @@ class Drone extends Component {
   }
 
   saveAnswers = () => {
-    fetch('http://localhost:3001/saveAnswers', {
+    fetch('http://localhost:3000/saveAnswers', {
       method: 'POST',
       headers: {
         'Content-Type':'application/json',
@@ -36,9 +36,12 @@ class Drone extends Component {
       body: JSON.stringify({
         answers: this.state.answers,
         user: this.props.userData,
-        game: this.props.gameData
+        game: this.props.gameData,
+        questions: this.props.questionData
       })
     })
+    .then(res => res.json())
+    .then(data => console.log(data))
   }
 
   tick() {
@@ -60,7 +63,7 @@ class Drone extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div className="Drone">
         {this.props ? (
