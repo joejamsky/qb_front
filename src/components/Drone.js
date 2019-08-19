@@ -7,7 +7,7 @@ class Drone extends Component {
     super(props)
     this.state = {
       answers: [],
-      seconds: 12
+      seconds: 120
     }
   }
 
@@ -40,8 +40,8 @@ class Drone extends Component {
         questions: this.props.questionData
       })
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    // .then(res => res.json())
+    // .then(data => console.log(data))
   }
 
   tick() {
@@ -63,7 +63,6 @@ class Drone extends Component {
   }
 
   render() {
-    // console.log(this.props)
     return (
       <div className="Drone">
         {this.props ? (

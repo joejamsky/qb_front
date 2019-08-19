@@ -30,10 +30,8 @@ class App extends Component {
       })
       .then(res => res.json())
       .then(userObj => {
-        // console.log(userObj, "user")
         this.setState({user: userObj})
       })
-      // .then(this.fetchGame())
     }
   }
   
@@ -76,25 +74,11 @@ class App extends Component {
     console.log(this.state.game, "set state")
   }
 
-  // selectRandomQuestions() {
-  //   let max_questions = 3
-  //   let allQuestions = this.state.questions
-  //   var randomQuestions = allQuestions.slice(0), i = allQuestions.length, temp, index;
-  //   while (i--) {
-  //       index = Math.floor((i + 1) * Math.random());
-  //       temp = randomQuestions[index];
-  //       randomQuestions[index] = randomQuestions[i];
-  //       randomQuestions[i] = temp;
-  //   }
-  //   return randomQuestions.slice(0, max_questions);
-  // }
-
   handleLogout = () => {
     localStorage.clear()
   }
 
   render() {
-    // console.log(this.state.game, "render")
     return (
       <BrowserRouter>      
         <header> 

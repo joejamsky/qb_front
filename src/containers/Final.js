@@ -25,7 +25,6 @@ class Final extends Component {
     const id = this.props.gameData.id
     fetch(`http://localhost:3000/pollChoice/${id}`)
     .then(res => res.json())
-    // .then(data => console.log(data))
     .then(choiceData => this.handleFoundChoice(choiceData))
   }
 
@@ -38,7 +37,6 @@ class Final extends Component {
   }
 
   render() {
-    // debugger
     return (
       <div className="Final">
         { this.state.searching ? (

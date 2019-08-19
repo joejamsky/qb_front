@@ -11,7 +11,7 @@ class Queen extends Component {
 
   printAnswers = () => {
     return this.state.answers.map(function(answer){
-      return <p key={answer.id} > {answer.content} fart </p>
+      return <p key={answer.id} > {answer.content} </p>
     })
   }
 
@@ -37,10 +37,11 @@ class Queen extends Component {
     const print_answers = this.state.answers
     if(print_answers !== undefined){
       const answers = this.state.answers 
+      debugger
       return this.state.questions.map(function(question, index){
         return (
           <div key={question.id} >
-            <div>{question.text}: {answers[index].content} fart</div>
+            <div>{question.text}: {answers[index].content}</div>
           </div>
         )
       })
@@ -80,7 +81,6 @@ class Queen extends Component {
     const gameId = this.props.gameData.id
     fetch(`http://localhost:3000/poll-drones/${gameId}`)
     .then(res => res.json())
-    // .then(data => console.log(data))
     .then(gameInfo => this.setState({
       game: gameInfo.game,
       drones: gameInfo.drones,
@@ -99,7 +99,6 @@ class Queen extends Component {
   }
 
   render() {
-    console.log(this.state, "game from queen state")
     return (
       <div className="Queen">
         Queen Room 
