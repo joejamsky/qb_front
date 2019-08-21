@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import queenbee from '../assets/queenLoading.gif'
+import lovebee from '../assets/bee_love.jpg'
 
 class Final extends Component {
 
@@ -40,13 +42,23 @@ class Final extends Component {
     return (
       <div className="Final">
         { this.state.searching ? (
-          <h1>WHO JELLY?</h1>
+          <div>
+            <h1>Making Jelly</h1>
+            <img src={queenbee} alt="boohoo" className="img-responsive"/>
+          </div>
         ) : (
-          <div className="winners-circle">
-            <h1>THESE TWO JELLY</h1>
-            <div>{this.state.queen.username}</div>
-            <p> loooooooovess </p>
-            <div>{this.state.drone.username}</div>
+          <div className="Winners-Circle">
+            <h1>Love Bugs</h1>
+            <div className="Final-Queen">
+
+              <img src={this.state.queen.profile_pic} alt="Queen User" />
+              <div>{this.state.queen.username}</div>
+            </div>
+            <img src={lovebee} alt="Hearts" />
+            <div className="Final-Drone">
+              <img src={this.state.drone.profile_pic} alt="Drone User" />
+              <div>{this.state.drone.username}</div>
+            </div>
           </div>
         )}
       </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/home-page.css'
 
 class Game extends Component {
 
@@ -52,12 +51,8 @@ class Game extends Component {
     return (
       <div className="Game-Container">
         <h1>Select Role</h1> 
-        <div onClick={this.handleQueenClick} className="Menu-button">
-          Queen
-        </div>
-        <div onClick={this.handleDroneClick} className="Menu-button"> 
-          Drone
-        </div>
+        <div onClick={this.handleQueenClick} className="Menu-button">Queen</div>
+        <div onClick={this.handleDroneClick} className="Menu-button">Drone</div>
       </div>
     );  
   }

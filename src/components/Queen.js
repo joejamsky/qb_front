@@ -33,26 +33,38 @@ class Queen extends Component {
     clearInterval(this.interval);
   }
 
-  printQuestionAndAnswers = () => {
+  printQuestionAndAnswers = (index) => {
     const print_answers = this.state.answers
-    if(print_answers !== undefined){
+    if(print_answers !== undefined && print_answers.length > 5){
       const answers = this.state.answers 
-      debugger
+      const multiplier = index * 2
+      if(index === 1){
+        return this.state.questions.map(function(question, q_index){
+          return (
+            <div key={question.id} >
+              <div>{question.text}: {answers[q_index].content}</div>
+            </div>
+          )
+        })
+      } else {
+        return this.state.questions.map(function(question, q_index){
+          return (
+            <div key={question.id} >
+              <div>{question.text}: {answers[q_index + multiplier].content}</div>
+            </div>
+          )
+        })
+      }
+
+    } else {
       return this.state.questions.map(function(question, index){
         return (
           <div key={question.id} >
-            <div>{question.text}: {answers[index].content}</div>
+            <div>{question.text}: </div>
           </div>
         )
       })
     }
-    return this.state.questions.map(function(question, index){
-      return (
-        <div key={question.id} >
-          <div>{question.text}: </div>
-        </div>
-      )
-    })
   }
 
   printDrones = () => {
@@ -62,15 +74,15 @@ class Queen extends Component {
       if(index === 0){
         return (
           <div className="drone-contrainer" key={index}> 
-            <h1>Queen Bee</h1> 
-            <p>hey {drone.username}</p>
+            <h1>Queen Bee {drone.username}</h1> 
+            <img src={drone.profile_pic} alt="Profile Pic" />
           </div>
         )
       } else {
         return (
           <div className="drone-contrainer" key={index}> 
             <h1>Player {index}: {drone.username} <button onClick={droneClicker} value={drone.id}>Select</button></h1> 
-            <div>{printQnAs()}</div>
+            <div>{printQnAs(index)}</div>
           </div>
         )
       }
@@ -101,7 +113,6 @@ class Queen extends Component {
   render() {
     return (
       <div className="Queen">
-        Queen Room 
         {this.printDrones()}
         {/* {this.props.gameData} */}
         {/* { this.state.searching ? (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/profile.css'
+import '../css/Profile.css'
 import EditProfileAttribute from './EditProfileAttribute'
 
 class Profile extends Component {
@@ -30,26 +30,39 @@ class Profile extends Component {
       <div className="profile-container"> 
         
         <div className="image-container">
-        <img src={this.props.userData.profile_pic} alt="Logo" />
+        <img src={this.props.userData.profile_pic} alt="Profile Pic" />
         </div>
 
-        <h1>{this.props.userData.username}</h1>
+        <h2>{this.props.userData.username}</h2>
         
-        <h5>Age</h5>
-        {this.state.edit_age ? (
-          <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="age" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
-        ) : (
-          <h5 className="profile-attribute">{this.props.userData.age} <button name="edit_age" onClick={this.handleEditButton} >Edit</button> </h5>
-        )}
 
-        <h5>Bio</h5>
-        {this.state.edit_bio ? (
-          <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="bio" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
-        ) : (
-          <h5 className="profile-attribute">{this.props.userData.bio} <button name="edit_bio" onClick={this.handleEditButton} >Edit</button> </h5>
-        )}
-        
-        <h5 onClick={this.handleDeleteClick} >Delete this mess </h5>
+        <div className="Profile-Data"> 
+          <div className="Profile-Line">
+            <h4>Age: </h4>
+            {this.state.edit_age ? (
+              <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="age" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
+              ) : (
+              <div className="Profile-Age">
+                <h4 className="profile-attribute">{this.props.userData.age}</h4>
+                <button className="Profile-btn" name="edit_age" onClick={this.handleEditButton} >Edit</button> 
+              </div>
+            )}
+          </div>
+
+          <div className="Profile-Line">
+            <h4>Bio: </h4>
+            {this.state.edit_bio ? (
+              <EditProfileAttribute className="profile-attribute" userData={this.props.userData} attribute="bio" setUserState={this.props.setUserState} handleEditButton={this.handleEditButton} />
+              ) : (
+              <div className="Profile-Bio">
+                <h4 className="profile-attribute">{this.props.userData.bio}</h4>
+                <button className="Profile-btn" name="edit_bio" onClick={this.handleEditButton} >Edit</button> 
+              </div>
+            )}
+          </div>
+          
+          <h6 onClick={this.handleDeleteClick} >Delete Profile</h6>
+        </div>
       </div>
     );  
   }

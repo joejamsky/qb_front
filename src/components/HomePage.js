@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/home-page.css'
 
 class HomePage extends Component {
 
@@ -21,9 +20,9 @@ class HomePage extends Component {
         <div onClick={this.handleClick} className="Menu-button" id="profile">
           Profile
         </div>
-        <div onClick={this.handleClick} className="Menu-button" id="matches">
+        {/* <div onClick={this.handleClick} className="Menu-button" id="matches">
           Matches
-        </div>
+        </div> */}
         <div onClick={this.handleClick} className="Menu-button" id="Game">
           Game
         </div>

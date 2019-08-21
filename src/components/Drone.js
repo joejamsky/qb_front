@@ -7,7 +7,7 @@ class Drone extends Component {
     super(props)
     this.state = {
       answers: [],
-      seconds: 120
+      seconds: 12
     }
   }
 

@@ -1,0 +1,48 @@
+.splash-form {
+  text-align: center;
+  width: 55vw;
+}
+
+.splash-btn {
+  width: 60%;
+  margin-top: 25px;
+  margin-left: 8px;
+  padding: 30px; 
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  background: #061930; 
+  border: 3px solid #061930;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.splash-btn:hover {
+  box-shadow: 2px 2px gray;
+  background-color: white;
+  color: #061930;
+}
+
+.splash-label {
+  display: block;
+  font-size: 20px;
+}
+
+.splash-input {
+  display: block;
+  text-align: center;
+  border: 2px solid #061930;
+  border-radius: 6px;
+  font-size: 100%;
+  margin: 5px;
+  width: 100%;
+  height: 4vh;
+}
+
+.splash-input:focus {
+  background-color: lightblue;
+  box-shadow: none;
+  /* text-align: center; */
+}
+

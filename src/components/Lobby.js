@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queenbee from '../assets/queenLoading.gif'
 
 class Lobby extends Component {
 
@@ -45,8 +46,8 @@ class Lobby extends Component {
   render() {
     return (
       <div className="Lobby">
-        <p>Hi {this.props.userData.username}</p>
-        <p> Waiting for other players</p>
+        <p> Waiting for Players</p>
+        <img src={queenbee} alt="boohoo" className="img-responsive"/>
       </div>
     );  
   }
