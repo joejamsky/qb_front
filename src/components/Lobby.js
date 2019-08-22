@@ -45,9 +45,11 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div className="Lobby">
-        <p> Waiting for Players</p>
-        <img src={queenbee} alt="boohoo" className="img-responsive"/>
+      <div className="LobbyPage">
+        <div className="Lobby">
+          <p> Waiting for Players</p>
+          <img src={queenbee} alt="boohoo" className="img-responsive"/>
+        </div>
       </div>
     );  
   }

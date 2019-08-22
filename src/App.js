@@ -104,7 +104,7 @@ class App extends Component {
           )}
         </header> 
         <Switch className="App">
-          <div className="switch-container">
+          {/* <div className="switch-container"> */}
             <Route path="/login" render={(routerProps) => <LoginPage {...routerProps} setUserState={this.setUserState} /> } />
             <Route path="/signup" render={(routerProps) => <SignupPage {...routerProps} setUserState={this.setUserState} /> } />
        
@@ -119,7 +119,7 @@ class App extends Component {
             <Route path="/final" render={(routerProps) => <Final {...routerProps} gameData={this.state.game} /> }  />
            
             <Route exact path="/" render={(routerProps) => <LoginPage {...routerProps} setUserState={this.setUserState} /> } />        
-          </div>
+          {/* </div> */}
         </Switch>
       </BrowserRouter>
     );

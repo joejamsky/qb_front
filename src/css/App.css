@@ -27,7 +27,16 @@ header {
   width: 100%;
 }
 
-.switch-container {
+/* .switch-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column;
+  
+  padding: 20px 0px 0px 0px;
+  align-items: center; 
+ } */
+
+ .App, .LoginPage, .HomePage, .QueenPage, .LobbyPage {
   flex: 1 1 auto;
   display: flex;
   flex-flow: column;
@@ -35,7 +44,19 @@ header {
   padding: 20px 0px 0px 0px;
   align-items: center; 
  }
+
+ .drone-container{
+   display: flex;
+   flex-flow: column;
+   align-items: center;
+ }
  
+ .Game-Container {
+  display: flex;
+  flex-flow: column;
+  padding: 20px 0px 0px 0px;
+  align-items: center; 
+ } 
 
 a, span{ 
   font-size: 20px;
@@ -83,6 +104,14 @@ form {
 
 .Winners-Circle {
   text-align: center;
+}
+
+.Select-Queen {
+  /* border-radius: 50%;
+  border: 2px solid white;
+  height: 150px;
+  width: 150px; */
+  align-self: center;
 }
 
 .img-responsive {

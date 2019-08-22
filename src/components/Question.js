@@ -15,7 +15,7 @@ class Question extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault()
     e.target.children[3].remove()
-
+    e.target.children[2].remove()
     this.props.handleAnswerSubmit(this.state)
   }
 

@@ -6,7 +6,8 @@ class Queen extends Component {
     game: {},
     drones: [],
     questions: [],
-    answers: []
+    answers: [],
+    select_ready: false
   }
 
   printAnswers = () => {
@@ -70,18 +71,23 @@ class Queen extends Component {
   printDrones = () => {
     const printQnAs = this.printQuestionAndAnswers
     const droneClicker = this.selectDrone
+    const ready = this.state.select_ready
     return this.state.drones.map(function(drone, index){
       if(index === 0){
         return (
-          <div className="drone-contrainer" key={index}> 
-            <h1>Queen Bee {drone.username}</h1> 
-            <img src={drone.profile_pic} alt="Profile Pic" />
+          <div className="drone-container" key={index}> 
+            <h1>Queen Bee: {drone.username}</h1> 
+            <img className="Select-Queen" src={drone.profile_pic} alt="Profile Pic" />
           </div>
         )
       } else {
         return (
-          <div className="drone-contrainer" key={index}> 
-            <h1>Player {index}: {drone.username} <button onClick={droneClicker} value={drone.id}>Select</button></h1> 
+          <div className="drone-container" key={index}> 
+            {ready === true ? ( 
+                <h1>Player {index}: {drone.username} <button onClick={droneClicker} value={drone.id}>Select</button></h1> 
+              ) : ( 
+                <h1>Player {index}: {drone.username}</h1>   
+            )}
             <div>{printQnAs(index)}</div>
           </div>
         )
@@ -89,16 +95,30 @@ class Queen extends Component {
     })
   }
 
+  handlePoll = (gameInfo) => {
+    if(gameInfo.answers){
+      this.setState({
+        game: gameInfo.game,
+        drones: gameInfo.drones,
+        questions: gameInfo.questions,
+        answers: gameInfo.answers,
+        select_ready: true
+      })
+    } else {
+      this.setState({
+        game: gameInfo.game,
+        drones: gameInfo.drones,
+        questions: gameInfo.questions,
+        answers: gameInfo.answers
+      })
+    }
+  }
+
   pollDrones = () => {
     const gameId = this.props.gameData.id
     fetch(`http://localhost:3000/poll-drones/${gameId}`)
     .then(res => res.json())
-    .then(gameInfo => this.setState({
-      game: gameInfo.game,
-      drones: gameInfo.drones,
-      questions: gameInfo.questions,
-      answers: gameInfo.answers
-    }))
+    .then(gameInfo => this.handlePoll(gameInfo))
   }
 
   componentDidMount(){
@@ -112,14 +132,10 @@ class Queen extends Component {
 
   render() {
     return (
-      <div className="Queen">
-        {this.printDrones()}
-        {/* {this.props.gameData} */}
-        {/* { this.state.searching ? (
-
-        ) : (
-          this.printDrones()
-        )} */}
+      <div className="QueenPage">
+        <div className="Queen">
+          {this.printDrones()}
+        </div>
       </div>
     );  
   }
