@@ -31,7 +31,7 @@ class Final extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.checkChoice(), 5000);
+    this.interval = setInterval(() => this.checkChoice(), 1000);
   }
 
   componentWillUnmount() {

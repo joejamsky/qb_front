@@ -22,7 +22,7 @@ class Profile extends Component {
       })
     } 
     localStorage.clear()
-    this.state.history.push('/login')
+    this.props.history.push('/login')
   }
 
   render() {

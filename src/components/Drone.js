@@ -7,7 +7,7 @@ class Drone extends Component {
     super(props)
     this.state = {
       answers: [],
-      seconds: 12
+      seconds: 120
     }
   }
 
@@ -66,8 +66,8 @@ class Drone extends Component {
     return (
       <div className="Drone">
         {this.props ? (
-          <div>
-            <h1>You have this long to be interesting: {this.state.seconds} </h1>
+          <div className="Drone-Questions">
+            <h1>Time Remaining: {this.state.seconds} </h1>
             {this.makeQuestion()}
           </div>
         ) : (
