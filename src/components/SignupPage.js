@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import '../css/LoginSignup.css'
 
 class SignupPage extends Component {
 
@@ -20,7 +20,6 @@ class SignupPage extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      // console.log(data)
       if (data.token) {
         localStorage.token = data.token
         this.props.history.push('/home')
@@ -38,14 +37,13 @@ class SignupPage extends Component {
     return (
       <div className="SignupPage">
         <h1>Sign Up</h1>
-        <form onSubmit={this.handleSignupSubmit} autoComplete="on" >
-          <label>Username</label>
-          <input onChange={this.handleFormChange} type="text" name="username" value={this.state.username} />
-          <label>Password</label>
-          <input onChange={this.handleFormChange} type="password" name="password" value={this.state.password} />
-          <button> Submit </button>
+        <form className="splash-form" onSubmit={this.handleSignupSubmit} autoComplete="on" >
+          <label className="splash-label" >Username</label>
+          <input className="splash-input" onChange={this.handleFormChange} type="text" name="username" value={this.state.username} />
+          <label className="splash-label" >Password</label>
+          <input className="splash-input" onChange={this.handleFormChange} type="password" name="password" value={this.state.password} />
+          <button className="splash-btn">Confirm</button>
         </form>
-        <Link className="login" to="/login">Login to an Account</Link>
       </div>
     )
   }
