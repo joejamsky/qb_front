@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import smallLoading from '../assets/smallLoading.gif'
 
 class Queen extends Component {
 
@@ -84,9 +85,15 @@ class Queen extends Component {
         return (
           <div className="drone-container" key={index}> 
             {ready === true ? ( 
-                <h1>Player {index}: {drone.username} <button onClick={droneClicker} value={drone.id}>Select</button></h1> 
-              ) : ( 
-                <h1>Player {index}: {drone.username}</h1>   
+              <div className="drone-container">
+                <h1>Player {index}</h1>   
+                <button className="select-btn" onClick={droneClicker} value={drone.id}>Select</button>
+              </div>
+            ) : ( 
+              <div className="drone-container">
+                <h1>Player {index} </h1>   
+                <img className="img-small-loading" src={smallLoading} alt="boohoo"/>
+              </div>
             )}
             <div>{printQnAs(index)}</div>
           </div>
@@ -122,7 +129,7 @@ class Queen extends Component {
   }
 
   componentDidMount(){
-    this.interval = setInterval(() => this.pollDrones(), 4000);
+    this.interval = setInterval(() => this.pollDrones(), 1000);
   }
 
   componentWillUnmount() {

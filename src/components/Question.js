@@ -26,8 +26,8 @@ class Question extends Component {
           <form onSubmit={this.handleFormSubmit} autoComplete="on"  >
             <p>Question: {this.props.questionObj.text}</p>
             <label>Response: </label>
-            <input onChange={this.handleFormChange} type="text" name="answer" value={this.state.answer} />
-            <button>Submit</button>
+            <input className="Drone-Input" onChange={this.handleFormChange} type="text" name="answer" value={this.state.answer} />
+            <button className="drone-select-btn" >Submit</button>
           </form>
         ) : ( 
           <h1>loading</h1> 

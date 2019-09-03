@@ -36,7 +36,7 @@ header {
   align-items: center; 
  } */
 
- .App, .LoginPage, .HomePage, .QueenPage, .LobbyPage {
+ .App, .LoginPage, .SignupPage, .HomePage, .QueenPage, .LobbyPage {
   flex: 1 1 auto;
   display: flex;
   flex-flow: column;
@@ -45,12 +45,16 @@ header {
   align-items: center; 
  }
 
- .drone-container{
+ .drone-container, .Drone {
    display: flex;
    flex-flow: column;
    align-items: center;
  }
  
+ /* .Drone-Questions{
+   width: 80%;
+ } */
+
  .Game-Container {
   display: flex;
   flex-flow: column;
@@ -69,7 +73,7 @@ a, span{
 h1 {
   text-align: center;
   margin: 0px;
-  padding: 20px;
+  padding: 10px;
 }
 
 button {
@@ -106,12 +110,16 @@ form {
   text-align: center;
 }
 
-.Select-Queen {
-  /* border-radius: 50%;
-  border: 2px solid white;
-  height: 150px;
-  width: 150px; */
+.Select-Queen, .img-small-loading {
   align-self: center;
+}
+
+.img-small-loading {
+  height: 20px;
+  width: 20px;
+  align-self: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .img-responsive {
@@ -119,6 +127,24 @@ form {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.select-btn, .drone-select-btn{
+  width: 80px;
+  height: 32px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  background-color: white;
+  border: solid 2px #061930;
+  color: black;
+  cursor: pointer;
+}
+
+.Drone-Input{
+  height: 27px;
+  width: 60%;
+  border: solid 2px black;
+  border-radius: 50px;
 }
 
 .App-header {
